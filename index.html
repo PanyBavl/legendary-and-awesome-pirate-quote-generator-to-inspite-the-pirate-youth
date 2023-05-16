@@ -6,22 +6,23 @@
     <title>Pirate Quote Generator</title>
     <style>
         body {
-            background-color: #151515;
+            background-image: url('pirate-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: "Trebuchet MS", Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        p {
-            text-align: center;
             color: white;
         }
+
         .container {
-            max-width: 500px;
+            max-width: 90%;
             margin: 50px auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 2px solid #FFF;
             border-radius: 10px;
         }
 
@@ -29,12 +30,12 @@
             font-size: 36px;
             margin: 0 0 20px;
             text-align: center;
+            color: #FFC107;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            color: #FFFFF;
         }
 
         #quote-container {
-            background-color: #FFFFF;
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             margin-top: 30px;
             border-radius: 5px;
@@ -73,7 +74,6 @@
         #quoteList li {
             margin-bottom: 10px;
             font-size: 18px;
-            color: #FFF;
             text-align: center;
             animation: fadeIn 1s ease;
         }
@@ -90,43 +90,10 @@
             }
         }
 
-        /* Additional pirate-themed styles */
-        body {
-            background-image: url('pirate-background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .container {
-            border: 2px solid #FFF;
-        }
-
-        h1 {
-            color: #FFC107;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        #quote-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #generateBtn {
-            background-color: #FFC107;
-            color: #000;
-            text-shadow: none;
-        }
-
-        #generateBtn:hover {
-            background-color: #FFA000;
-        }
-
         /* Responsive styles */
         @media (max-width: 600px) {
             .container {
-                max-width:
-                    90%;
+                max-width: 90%;
             }
         }
     </style>
@@ -248,13 +215,6 @@
             "In the realm of pirates, every sunrise brings the promise of new horizons and uncharted treasures.",
             "A pirate's legacy lives on through the tales of their daring exploits, inspiring generations yet to come.",
             "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
-            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on"
         ];
 
         const quoteElement = document.getElementById('quote');
