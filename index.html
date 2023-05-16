@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pirate Quote Generator</title>
+    <style>
+        body {
+            background-color: #151515;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            text-align: center;
+            color: white;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0 0 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #FFF;
+        }
+
+        #quote-container {
+            background-color: #FFF;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        #quote {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+        }
+
+        #generateBtn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #FFC107;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #generateBtn:hover {
+            background-color: #FFA000;
+        }
+
+        #quoteList {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        #quoteList li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #FFF;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Additional pirate-themed styles */
+        body {
+            background-image: url('pirate-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            border: 2px solid #FFF;
+        }
+
+        h1 {
+            color: #FFC107;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #quote-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #generateBtn {
+            background-color: #FFC107;
+            color: #000;
+            text-shadow: none;
+        }
+
+        #generateBtn:hover {
+            background-color: #FFA000;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .container {
+                max-width:
+                    90%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Pirate Quote Generator</h1>
+        <p>Made for Aiden Micheal Joseph Wagner from Urbana, Ohio. Whom of which attends Urbana High School and lives at</p>
+        <div id="quote-container">
+            <p id="quote"></p>
+            <br>
+            <button id="copyBtn">Copy Quote</button>
+        </div>
+        <button id="generateBtn">Generate Quote</button>
+        <ul id="quoteList"></ul>
+    </div>
+    <script>
+        const pirateQuotes = [
+            "Avast, me hearties! Embrace the spirit of adventure and let the sea be your playground.",
+            "Fear not the storm, for a true pirate's spirit is unbreakable.",
+            "Hoist the colors of your dreams high and let them guide you to the treasures of the world.",
+            "Doubt not your worth, for even the smallest pirate can accomplish the greatest feats.",
+            "Remember, young buccaneers, the sea is vast and full of wonders. Explore and discover!",
+            "Be a beacon of light in the darkness, shining with the bravery of a true pirate.",
+            "Aim for the stars, but navigate by the constellations. Let the sky be your guiding map.",
+            "In the face of adversity, let your resilience shine through like gold in the sunken chests.",
+            "The truest treasure a pirate can find is the camaraderie of loyal mates. Cherish your crew.",
+            "As you set sail, keep the spirit of adventure alive within your soul. Embrace the unknown.",
+            "Let the wind fill your sails and carry you to new horizons. The world is your playground.",
+            "Unleash the fire within, young buccaneer, and let it fuel your ambitions on the high seas.",
+            "Every storm that rages is but an opportunity to prove the indomitable spirit of a pirate.",
+            "Aim true and let your cannons roar with the thunderous might of a thousand storms.",
+            "Seek not just the treasures of gold and silver, but the wisdom that lies within the depths.",
+            "The legacy of a pirate is not measured in riches alone, but in the stories of their adventures.",
+            "As the tides ebb and flow, so too does the fortune of a pirate. Embrace both with open arms.",
+            "Young pirate, the world is your playground. Explore, create, and leave your mark upon it.",
+            "Through the trials and tribulations, remember that every setback is but a step toward triumph.",
+            "Set your sights on the horizon, young matey, and let your dreams guide you to the treasures.",
+            "A pirate's life is a life of adventure and daring, but it's also a life of loyalty to your crew.",
+            "The sea may be treacherous, but a pirate's heart is even more dangerous.",
+            "A pirate's greatest treasure is not the gold and jewels, but the friendships made along the way.",
+            "Pirates may be feared and reviled, but they are also admired for their bravery and daring.",
+            "The pirate's life is not for the faint of heart, but for those who seek adventure and freedom.",
+            "A pirate's courage is forged in the fires of danger and tempered with the salt of the sea.",
+            "Pirates may be outlaws, but they are also a tight-knit family that will defend each other to the end.",
+            "The sea is a harsh mistress, but a pirate's love for adventure and treasure is even stronger.",
+            "The life of a pirate may be rough, but it is also filled with excitement and the thrill of the unknown.",
+            "A pirate's code may be simple, but it is also a sacred bond that holds the crew together through all challenges.",
+            "A pirate's heart knows no bounds, for it seeks freedom on the vast expanse of the open sea.",
+            "In the realm of pirates, courage and cunning are the true treasures that lead to triumph.",
+            "The sea may be vast and unforgiving, but a pirate's spirit is resilient and unconquerable.",
+            "A pirate's legacy is not measured in riches, but in the tales woven through the ages.",
+            "The pirate's flag flies high, a symbol of defiance against the constraints of the world.",
+            "The sea holds no judgment, accepting all who dare to embrace the pirate's life.",
+            "Pirates navigate not only by the stars above but also by the fire that burns within their souls.",
+            "A pirate's gaze is fixed on the horizon, forever seeking new horizons and boundless adventures.",
+            "The pirate's code is not just a set of rules but a compass guiding them through the chaotic seas.",
+            "To be a pirate is to dance with danger, to revel in the unknown and emerge victorious.",
+            "The pirate's song echoes through the waves, a melody of freedom that inspires all who hear it.",
+            "A pirate's courage is like a tempest, fierce and unstoppable, defying all odds.",
+            "Pirates may be outcasts, but their hearts beat with an unwavering spirit of rebellion.",
+            "The pirate's life is a tapestry woven with tales of plunder, honor, and unforgettable voyages.",
+            "A pirate's ship is not just wood and sails but a symbol of freedom, ready to defy all boundaries.",
+            "Pirates may be thieves, but they also hold the key to unlocking dreams of adventure.",
+            "A pirate's laughter echoes through the salty air, a testament to a life lived with wild abandon.",
+            "The pirate's sword is not just a weapon, but a companion in their quest for fortune and glory.",
+            "In the heart of a pirate lies the spirit of exploration, yearning to discover new lands.",
+            "Pirates sail not just for treasures, but to leave a mark upon the vast canvas of the world.",
+            "A pirate's spirit is forged in the crucible of the sea, where legends are born and destinies unfold.",
+            "Pirates may be branded as outlaws, but they are the true embodiment of freedom.",
+            "The pirate's life is a symphony of chaos and triumph, sung by the souls who dare to roam the open waters.",
+            "In the heart of every pirate beats the desire to unravel the mysteries that lie beyond the horizon.",
+            "A pirate's loyalty to their crew is unbreakable, for they are bound by the shared dreams of adventure.",
+            "The sea is a vast canvas, and a pirate's ship is their brush, painting tales of bravery and glory.",
+            "Pirates are not bound by the chains of society, but guided by the compass of their own moral code.",
+            "A pirate's legacy lives on in the whispers of their tales, carried on the winds to inspire future generations.",
+            "The sea may be vast, but a pirate's dreams are even greater, reaching beyond the boundaries of the known.",
+            "Pirates thrive amidst chaos, their resilience like an anchor that keeps them grounded in the storm.",
+            "A pirate's treasure lies not only in chests of gold, but in the memories of extraordinary adventures.",
+            "Pirates sail with the wind at their backs and the thrill of the unknown propelling them forward.",
+            "The pirate's flag waves proudly, a symbol of defiance and a call to unite against all odds.",
+            "In the heart of a pirate beats the rhythm of freedom, echoing through every step upon the deck.",
+            "Pirates do not fear the darkness, for they carry the light of courage that guides them through.",
+            "A pirate's tale is woven with threads of danger, courage, and the relentless pursuit of their dreams.",
+            "Pirates embrace the chaos of the sea, where waves crash like thunder and dreams are set free.",
+            "The pirate's eye sees beyond the surface, discovering treasures hidden in the depths of the unknown.",
+            "In the realm of pirates, legends are born, and ordinary men and women become extraordinary.",
+            "A pirate's soul dances with the moonlit waves, forever seeking new horizons and untamed adventures.",
+            "Pirates are the guardians of freedom, defenders of the untamed, and masters of their own destiny.",
+            "The pirate's map leads not only to treasure but also to self-discovery and the conquest of fear.",
+            "In the heart of a pirate lies a compass that points to the true north of their adventurous spirit.",
+            "Pirates chart their course with determination, knowing that the greatest treasures lie beyond the known.",
+            "The pirate's parrot may squawk, but it carries the wisdom of the high seas in its colorful feathers.",
+            "Pirates defy expectations, challenging the norm and creating their own path amidst the turbulent waters.",
+            "A pirate's scars tell stories of battles fought, hardships endured, and victories claimed.",
+            "In the realm of pirates, every sunrise brings the promise of new beginnings and untold treasures.",
+            "Pirates revel in the freedom of the open sea, where rules are meant to be broken and dreams set sail.",
+            "The pirate's laughter echoes through the salty air, a joyful defiance in the face of adversity.",
+            "A pirate's sword carries the weight of their honor and the power to protect their crew.",
+            "Pirates find strength in the unity of their crew, a bond forged through shared adventures and hardships.",
+            "In the heart of a pirate, there burns a fire that cannot be extinguished, a thirst for the extraordinary.",
+            "Pirates may sail different ships, but they all navigate the same vast sea of dreams and aspirations.",
+            "The pirate's legacy lives on in the whispers of the wind, carrying tales of their daring exploits.",
+            "A pirate's flag flies high, a symbol of their indomitable spirit and the pursuit of their dreams.",
+            "Pirates are the masters of improvisation, turning adversity into opportunity on the ever-changing sea.",
+            "In the realm of pirates, treasure is not just gold and jewels, but the memories created along the way.",
+            "A pirate's heart knows no bounds, for it beats with the rhythm of the boundless sea.",
+            "Pirates fear not the storms that rage, for they are born of thunder and lightning.",
+            "The pirate's path is strewn with challenges, but they rise above, guided by their unwavering spirit.",
+            "A pirate's tale is woven with the threads of courage, resilience, and the pursuit of freedom.",
+            "Pirates carry within them the echoes of ancient mariners, their spirits intertwined with the sea.",
+            "In the heart of every pirate lies the dream of finding a place where they truly belong.",
+            "Pirates chart their own destiny, unswayed by the currents that seek to pull them off course.",
+            "The pirate's life is a never-ending quest, fueled by curiosity, adventure, and the thrill of the unknown.",
+            "A pirate's soul is a patchwork of stories, bound together by the love for the sea and the freedom it offers.",
+            "Pirates may be outlaws, but they live by their own code, with honor and loyalty as their guiding stars.",
+            "In the realm of pirates, every sunrise brings the promise of new horizons and uncharted treasures.",
+            "A pirate's legacy lives on through the tales of their daring exploits, inspiring generations yet to come.",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on",
+            "Captain Sir Aiden Micheal Joseph Wagner The IV Esquire is the best pirate captain the seas will ever lay her eyes on"
+        ];
+
+        const quoteElement = document.getElementById('quote');
+        const quoteList = document.getElementById('quoteList');
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+
+        generateBtn.addEventListener('click', generateQuote);
+        copyBtn.addEventListener('click', copyToClipboard);
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * pirateQuotes.length);
+            const randomQuote = pirateQuotes[randomIndex];
+            quoteElement.textContent = randomQuote;
+        }
+
+        function copyToClipboard() {
+            const quoteText = quoteElement.textContent;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = quoteText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            alert('Quote copied to clipboard!');
+        }
+        displayQuotes();
+    </script>
+</body>
+
+</html>
