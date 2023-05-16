@@ -113,6 +113,35 @@
         <ul id="quoteList"></ul>
     </div>
     <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            function checkOrientation() {
+                if (window.innerWidth < window.innerHeight) {
+                    // User is in portrait mode
+                    var message = document.createElement('div');
+                    message.innerHTML = 'For a better experience, please switch to landscape mode.';
+                    message.style.backgroundColor = '#FFC107';
+                    message.style.color = '#000';
+                    message.style.padding = '10px';
+                    message.style.textAlign = 'center';
+                    message.style.position = 'fixed';
+                    message.style.bottom = '0';
+                    message.style.left = '0';
+                    message.style.width = '100%';
+                    document.body.appendChild(message);
+                }
+            }
+
+            checkOrientation();
+
+            window.addEventListener('resize', function () {
+                var message = document.getElementById('orientationMessage');
+                if (message) {
+                    message.parentNode.removeChild(message);
+                }
+                checkOrientation();
+            });
+        });
+
         const pirateQuotes = [
             "Avast, me hearties! Embrace the spirit of adventure and let the sea be your playground.",
             "Fear not the storm, for a true pirate's spirit is unbreakable.",
